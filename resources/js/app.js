@@ -1,4 +1,6 @@
+import VueRouter from 'vue-router';
 import HeaderComponent from './components/HeaderComponent';
+import TaskListComponent from './components/TaskListComponent';
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -30,6 +32,20 @@ Vue.component('header-component', HeaderComponent);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+Vue.use(VueRouter);
+
+const router = new VueRouter({
+    mode: 'history',
+    routes: [
+        {
+            path: '/tasks',
+            name: 'task.list',
+            component: TaskListComponent
+        },
+    ]
+});
+
 const app = new Vue({
     el: '#app',
+    router
 });
