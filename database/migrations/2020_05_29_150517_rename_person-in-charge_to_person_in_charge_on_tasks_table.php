@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTasksTable extends Migration
+class RenamePersonInChargeToPersonInChargeOnTasksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateTasksTable extends Migration
      */
     public function up()
     {
-        Schema::create('tasks', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('title', 100);
-            $table->string('content', 100);
-            $table->string('person_in_charge', 100);
-            $table->timestamps();
+        Schema::table('tasks', function (Blueprint $table) {
+            $table->renameColumn('person-"in"-charge', 'person_in_charge');
         });
     }
 
@@ -29,6 +25,8 @@ class CreateTasksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tasks');
+        Schema::table('tasks', function (Blueprint $table) {
+            $table->renameColumn('person_in_charge', 'person-"in"-charge');
+        });
     }
 }
